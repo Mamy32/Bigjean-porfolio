@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, X, Maximize2 } from 'lucide-react';
+import { ExternalLink, X, Maximize2 } from 'lucide-react';
 import { Badge } from '../components/Badge';
 import { BrowserMockup } from '../components/BrowserMockup';
 import { projects } from '../data/portfolioData';
