@@ -60,12 +60,7 @@ export const personalInfo = {
   availabilityStatus: "Available for remote work and freelance projects.",
 };
 
-export const trustStats = [
-  { label: "Years Coding", value: "2+", icon: "Code" },
-  { label: "Projects Shipped", value: "18+", icon: "Rocket" },
-  { label: "GitHub Commits", value: "1,200+", icon: "GitCommit" },
-  { label: "Tech Stack Count", value: "15+", icon: "Cpu" },
-];
+
 
 export const coreStrengths = [
   "Performance-first mindset (Core Web Vitals optimized)",
@@ -83,15 +78,18 @@ export const skillGroups: SkillGroup[] = [
       { name: "TypeScript" },
       { name: "JavaScript (ES6+)" },
       { name: "Python" },
-      { name: "SQL (PostgreSQL)" },
+      { name: "PHP" },
       { name: "Go (Golang)" },
-      { name: "HTML5 / CSS3" },
+      { name: "Java" },
     ],
   },
   {
     category: "Frameworks & Libraries",
     items: [
       { name: "React" },
+      { name: "Next.js" },
+      { name: "laravel" },
+      { name: "symphony" },
       { name: "Next.js" },
       { name: "Node.js (Express / Fastify)" },
       { name: "Tailwind CSS" },
