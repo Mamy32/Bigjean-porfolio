@@ -1,81 +1,89 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Github, ArrowUpRight } from 'lucide-react';
-import { Badge } from '../components/Badge';
-import { Button } from '../components/Button';
-import { BorderedCard } from '../components/BorderedCard';
-import { personalInfo } from '../data/portfolioData';
+import React, { useState } from 'react';
+import { ArrowUpRight, Check, Copy } from 'lucide-react';
+import { Reveal } from '../components/Reveal';
+import { openTo, personalInfo } from '../data/portfolioData';
 
 export const Contact: React.FC = () => {
-  const socials = [
-    { label: "GitHub", href: personalInfo.github, icon: Github },
-  ];
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(personalInfo.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${personalInfo.email}`;
+    }
+  };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-grid-pattern border-t border-border-subtle/30">
-      <div className="absolute bottom-0 left-[50%] -translate-x-1/2 w-[700px] h-[350px] rounded-t-full bg-radial-glow opacity-30 -z-10" />
+    <section id="contact" className="max-w-7xl mx-auto px-5 sm:px-8 py-24 lg:py-36">
+      <Reveal>
+        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+          <span className="text-accent">05</span>
+          <span className="h-px w-8 bg-line" />
+          <span>Contact</span>
+        </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          className="space-y-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <Badge label="Connect" dotColor="violet" />
-          
-          <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
-            Ready to Build <br />
-            Something Amazing?
-          </h2>
-          
-          <p className="text-sm sm:text-base text-text-muted max-w-lg mx-auto leading-relaxed">
-            I am currently looking for remote opportunities or freelance software engineering roles. Whether you have a project in mind or just want to chat engineering, feel free to reach out!
-          </p>
+        <h2 className="mt-6 font-display font-semibold text-[clamp(2.75rem,9vw,8rem)] leading-[0.9] tracking-[-0.04em]">
+          Got a role or a project?{' '}
+          <em className="font-serif font-normal italic tracking-[-0.01em] text-accent">Let's talk.</em>
+        </h2>
 
-          {/* Contact Box */}
-          <div className="max-w-md mx-auto pt-4">
-            <BorderedCard hoverGlow={true} className="p-6 sm:p-8 space-y-6">
-              <p className="text-xs font-mono tracking-widest text-text-muted uppercase">
-                Direct Channel
-              </p>
-              
-              <div className="flex flex-col items-center gap-4">
-                <a href={`mailto:${personalInfo.email}`} className="w-full">
-                  <Button variant="primary" className="w-full gap-2 text-sm sm:text-base py-3 sm:py-3.5 shadow-[0_0_30px_rgba(37,99,235,0.15)] cursor-pointer">
-                    <Mail className="w-5 h-5" />
-                    {personalInfo.email}
-                  </Button>
+        <div className="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-10 border-t border-line pt-10">
+          <div className="lg:col-span-8">
+            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Email</div>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="mt-3 inline-block font-display font-medium text-[clamp(1.15rem,3.4vw,2.5rem)] tracking-[-0.02em] break-all link-line pb-1"
+            >
+              {personalInfo.email}
+            </a>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="inline-flex h-13 items-center gap-2 rounded-full bg-accent px-7 font-medium text-white hover:bg-ink hover:text-paper transition-colors"
+              >
+                Write to me <ArrowUpRight size={18} />
+              </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors cursor-pointer"
+              >
+                {copied ? <Check size={18} /> : <Copy size={18} />}
+                {copied ? 'Copied' : 'Copy address'}
+              </button>
+            </div>
+          </div>
+
+          <dl className="lg:col-span-4 space-y-6">
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Open to</dt>
+              <dd className="mt-2 text-lg font-medium">{openTo.join(' · ')}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Time zone</dt>
+              <dd className="mt-2 text-lg font-medium">
+                {personalInfo.location} · {personalInfo.utcOffset}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Elsewhere</dt>
+              <dd className="mt-2 text-lg font-medium">
+                <a
+                  href={personalInfo.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 link-line"
+                >
+                  GitHub <ArrowUpRight size={16} className="text-accent" />
                 </a>
-              </div>
-
-              <div className="flex items-center justify-center gap-6 pt-6 border-t border-border-subtle/40">
-                {socials.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-1 text-[11px] font-mono font-medium text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
-                    >
-                      <Icon className="w-3.5 h-3.5 text-text-muted group-hover:text-accent-cyan transition-colors" />
-                      {social.label}
-                      <ArrowUpRight className="w-2.5 h-2.5 text-text-muted/40 group-hover:text-text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                    </a>
-                  );
-                })}
-              </div>
-            </BorderedCard>
-          </div>
-
-          <div className="pt-12 text-[10px] font-mono text-text-muted select-none">
-            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-          </div>
-        </motion.div>
-      </div>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </Reveal>
     </section>
   );
 };

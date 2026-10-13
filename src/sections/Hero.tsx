@@ -1,99 +1,143 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code, Rocket, GitCommit, Cpu, ArrowRight, Mail } from 'lucide-react';
-import { Badge } from '../components/Badge';
-import { Button } from '../components/Button';
-import { BrowserMockup } from '../components/BrowserMockup';
-import { StatsWidget } from '../components/StatsWidget';
-import { personalInfo, trustStats } from '../data/portfolioData';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { education, marqueeItems, openTo, personalInfo } from '../data/portfolioData';
 
-const iconMap: Record<string, React.ComponentType<any>> = {
-  Code,
-  Rocket,
-  GitCommit,
-  Cpu,
+const formatTime = () =>
+  new Intl.DateTimeFormat('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: personalInfo.timeZone,
+  }).format(new Date());
+
+const useLocalTime = () => {
+  const [time, setTime] = useState(formatTime);
+  useEffect(() => {
+    const id = setInterval(() => setTime(formatTime()), 15_000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+};
+
+const stampText = 'Open to remote roles ✦ Freelance projects ✦ ';
+
+const Stamp: React.FC = () => (
+  <a
+    href="#contact"
+    aria-label="Available for work — get in touch"
+    className="group relative grid size-36 lg:size-44 place-items-center rounded-full"
+  >
+    <svg viewBox="0 0 200 200" className="absolute inset-0 animate-spin-slow">
+      <defs>
+        <path id="stamp-circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+      </defs>
+      <text className="fill-ink font-mono text-[15.5px] uppercase tracking-[0.2em]">
+        <textPath href="#stamp-circle" textLength="486">
+          {stampText}
+        </textPath>
+      </text>
+    </svg>
+    <span className="grid size-16 lg:size-20 place-items-center rounded-full bg-accent text-white transition-transform duration-300 group-hover:scale-110">
+      <ArrowUpRight size={28} />
+    </span>
+  </a>
+);
+
+const rise = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 export const Hero: React.FC = () => {
+  const time = useLocalTime();
+
+  const meta = [
+    { label: 'Based in', value: `${personalInfo.location} · ${time} ${personalInfo.utcOffset}` },
+    { label: 'Currently', value: `${personalInfo.currentRole}, ${personalInfo.currentCompany}` },
+    { label: 'Studying', value: `Computer Science, ${education.institution}` },
+    { label: 'Open to', value: openTo.join(' · ') },
+  ];
+
   return (
-    <section className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden bg-grid-pattern">
-      {/* Background glowing circles */}
-      <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-radial-glow opacity-60 -z-10 animate-pulse-slow" />
-      <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-radial-glow-violet opacity-50 -z-10 animate-pulse-slow" />
+    <section className="pt-16">
+      <motion.div
+        className="max-w-7xl mx-auto px-5 sm:px-8 pt-14 sm:pt-20 lg:pt-24"
+        initial="hidden"
+        animate="show"
+        transition={{ staggerChildren: 0.1 }}
+      >
+        <motion.div
+          variants={rise}
+          className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted"
+        >
+          <span className="size-2 rounded-full bg-accent animate-blink" />
+          Available for new work
+        </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column: Text Content */}
-          <motion.div 
-            className="lg:col-span-7 space-y-6 sm:space-y-8 text-left"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+        <div className="mt-8 grid lg:grid-cols-12 gap-10 items-end">
+          <motion.h1
+            variants={rise}
+            className="lg:col-span-10 font-display font-semibold text-[clamp(2.75rem,8.6vw,7.5rem)] leading-[0.92] tracking-[-0.04em]"
           >
-            {/* Pill Badge */}
-            <Badge label={personalInfo.availabilityStatus} dotColor="cyan" />
-
-            {/* Gradient Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white leading-[1.1] sm:leading-[1.05]">
-              Hi, I'm <span className="bg-gradient-text bg-clip-text text-transparent">{personalInfo.name}</span>. <br className="hidden sm:inline" />
-              I build scalable software solutions.
-            </h1>
-
-            {/* One-line Subtext */}
-            <p className="text-base sm:text-lg text-text-muted max-w-xl font-normal leading-relaxed">
-              {personalInfo.tagline}
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
-              <a href="#projects">
-                <Button variant="primary" className="gap-2 group">
-                  View My Work
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Button>
-              </a>
-              <a href={`mailto:${personalInfo.email}`}>
-                <Button variant="secondary" className="gap-2">
-                  <Mail className="w-4 h-4" />
-                  Contact Me
-                </Button>
-              </a>
-            </div>
-
-            {/* Stat/Trust Row */}
-            <div className="pt-6 border-t border-border-subtle/50 grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {trustStats.map((stat, index) => {
-                const IconComponent = iconMap[stat.icon] || Code;
-                return (
-                  <div key={index} className="space-y-1">
-                    <div className="flex items-center gap-2 text-accent-cyan">
-                      <IconComponent className="w-4 h-4" />
-                      <span className="text-xl sm:text-2xl font-bold font-display text-text-primary tracking-tight">
-                        {stat.value}
-                      </span>
-                    </div>
-                    <p className="text-[10px] font-mono tracking-widest text-text-muted uppercase">
-                      {stat.label}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
+            Full-stack developer building fast,{' '}
+            <em className="font-serif font-normal italic tracking-[-0.01em] text-accent">
+              conversion-focused
+            </em>{' '}
+            web products.
+          </motion.h1>
+          <motion.div variants={rise} className="hidden lg:flex lg:col-span-2 justify-end pb-3">
+            <Stamp />
           </motion.div>
+        </div>
 
-          {/* Right Column: Floating Mockup */}
-          <motion.div 
-            className="lg:col-span-5 w-full max-w-md mx-auto lg:max-w-none"
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            <BrowserMockup title="github.com/alexrivera/activity">
-              <StatsWidget />
-            </BrowserMockup>
-          </motion.div>
+        <motion.div variants={rise} className="mt-10 lg:mt-14 grid lg:grid-cols-12 gap-8 items-end">
+          <p className="lg:col-span-6 text-lg sm:text-xl leading-relaxed text-muted">
+            {personalInfo.intro}
+          </p>
+          <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
+            <a
+              href="#work"
+              className="inline-flex h-13 items-center gap-2 rounded-full bg-ink px-7 font-medium text-paper hover:bg-accent hover:text-white transition-colors"
+            >
+              See selected work <ArrowDown size={18} />
+            </a>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors"
+            >
+              Email me <ArrowUpRight size={18} />
+            </a>
+          </div>
+        </motion.div>
 
+        <motion.dl
+          variants={rise}
+          className="mt-14 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-line"
+        >
+          {meta.map((item) => (
+            <div
+              key={item.label}
+              className="border-b border-line py-5 sm:pr-6 lg:border-b-0 lg:border-l lg:pl-6 lg:first:border-l-0 lg:first:pl-0"
+            >
+              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">{item.label}</dt>
+              <dd className="mt-2 font-medium tabular-nums">{item.value}</dd>
+            </div>
+          ))}
+        </motion.dl>
+      </motion.div>
+
+      <div className="border-y border-line overflow-hidden py-5" aria-hidden="true">
+        <div className="flex w-max animate-marquee">
+          {[0, 1].map((copy) => (
+            <ul key={copy} className="flex shrink-0 items-center">
+              {marqueeItems.map((item) => (
+                <li key={item} className="flex items-center font-display text-2xl sm:text-3xl font-medium tracking-tight">
+                  <span className="px-6 sm:px-8">{item}</span>
+                  <span className="text-accent">✦</span>
+                </li>
+              ))}
+            </ul>
+          ))}
         </div>
       </div>
     </section>

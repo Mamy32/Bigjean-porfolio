@@ -1,99 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Button } from './Button';
+import React, { useEffect, useState } from 'react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+
+const navLinks = [
+  { label: 'Work', href: '#work' },
+  { label: 'Services', href: '#services' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'About', href: '#about' },
+];
+
+type Theme = 'light' | 'dark';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<Theme>(
+    () => (document.documentElement.dataset.theme as Theme) || 'light',
+  );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // storage unavailable — theme still applies for this visit
+    }
+  }, [theme]);
 
-  const navLinks = [
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Stack", href: "#stack" },
-    { label: "Experience", href: "#experience" },
-  ];
+  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-bg-base/70 backdrop-blur-md border-b border-border-subtle/40 py-3.5' 
-        : 'bg-transparent py-6'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo / Wordmark */}
-          <a href="#" className="flex items-center gap-1.5 group">
-            <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-text-primary">
-              Mamy<span className="text-accent-cyan">.Jean</span>
-            </span>
-            <span className="w-2 h-2 rounded-full bg-accent-violet animate-breathing-dot" />
-          </a>
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-paper/85 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+        <a href="#" className="flex items-center gap-2 font-display font-semibold text-lg tracking-tight">
+          {personalInfo.name}
+          <span className="size-2 rounded-full bg-accent" />
+        </a>
 
-          {/* Desktop Nav links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a 
-                key={link.label} 
-                href={link.href}
-                className="text-sm font-medium text-text-muted hover:text-text-primary transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* Right CTA */}
-          <div className="hidden md:block">
-            <a href={`mailto:${personalInfo.email}`}>
-              <Button variant="primary" className="text-xs px-5 py-2 sm:px-6 sm:py-2.5">
-                Contact Me
-              </Button>
+        <nav className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-[0.14em]">
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="text-muted hover:text-ink transition-colors">
+              {link.label}
             </a>
-          </div>
+          ))}
+        </nav>
 
-          {/* Hamburger toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
-            aria-label="Toggle Menu"
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            className="size-10 grid place-items-center rounded-full border border-line hover:border-ink transition-colors cursor-pointer"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <a
+            href="#contact"
+            className="hidden sm:inline-flex h-10 items-center rounded-full bg-ink px-5 text-sm font-medium text-paper hover:bg-accent hover:text-white transition-colors"
+          >
+            Get in touch
+          </a>
+          <button
+            type="button"
+            onClick={() => setIsOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+            className="md:hidden size-10 grid place-items-center rounded-full border border-line cursor-pointer"
+          >
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-bg-card border-b border-border-subtle px-4 py-6 flex flex-col gap-5 shadow-2xl transition-all duration-300">
-          <nav className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <a 
-                key={link.label} 
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-base font-medium text-text-muted hover:text-text-primary transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="border-t border-border-subtle/50 pt-4">
-            <a href={`mailto:${personalInfo.email}`} onClick={() => setIsOpen(false)}>
-              <Button variant="primary" className="w-full">
-                Contact Me
-              </Button>
+        <nav className="md:hidden border-t border-line bg-paper px-5 pb-6">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="block border-b border-line py-4 font-display text-2xl font-semibold tracking-tight"
+            >
+              {link.label}
             </a>
-          </div>
-        </div>
+          ))}
+          <a
+            href="#contact"
+            onClick={() => setIsOpen(false)}
+            className="mt-5 flex h-12 items-center justify-center rounded-full bg-ink text-paper font-medium"
+          >
+            Get in touch
+          </a>
+        </nav>
       )}
     </header>
   );

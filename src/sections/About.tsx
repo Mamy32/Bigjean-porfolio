@@ -1,56 +1,61 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Badge } from '../components/Badge';
-import { BorderedCard } from '../components/BorderedCard';
-import { CheckmarkList } from '../components/CheckmarkList';
-import { personalInfo, coreStrengths } from '../data/portfolioData';
+import { Reveal } from '../components/Reveal';
+import { Em, SectionHeading } from '../components/SectionHeading';
+import { education, personalInfo, skillGroups } from '../data/portfolioData';
 
 export const About: React.FC = () => {
+  const [lead, ...rest] = personalInfo.about;
+
   return (
-    <section id="about" className="py-24 border-y border-border-subtle/30 bg-bg-base/30 relative">
-      <div className="absolute inset-0 bg-radial-glow opacity-30 -z-10" />
+    <section id="about" className="max-w-7xl mx-auto px-5 sm:px-8 pt-24 lg:pt-32">
+      <SectionHeading index="04" label="About">
+        Madagascar to Indonesia, <Em>backend to full stack.</Em>
+      </SectionHeading>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column: Bio */}
-          <motion.div 
-            className="lg:col-span-6 space-y-6 text-left"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <Badge label="About Me" dotColor="blue" />
-            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
-              Driven by Quality,<br />
-              Guided by Performance.
-            </h2>
-            <p className="text-base text-text-muted leading-relaxed font-normal">
-              {personalInfo.bio}
+      <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 border-b border-line py-12 lg:py-16">
+        <Reveal className="lg:col-span-7">
+          <p className="font-display text-2xl sm:text-3xl font-medium leading-snug tracking-[-0.02em]">
+            {lead}
+          </p>
+          {rest.map((paragraph) => (
+            <p key={paragraph} className="mt-6 text-lg leading-relaxed text-muted max-w-2xl">
+              {paragraph}
             </p>
-            <p className="text-sm text-text-muted/80 leading-relaxed font-normal">
-              I believe that beautiful design and solid code should work in perfect harmony. During my studies, I have focused on understanding how web applications perform under the hood, ensuring my interfaces not only look modern but also render instantly.
-            </p>
-          </motion.div>
+          ))}
+        </Reveal>
 
-          {/* Right Column: Strengths Card */}
-          <motion.div 
-            className="lg:col-span-6"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+        <Reveal delay={0.1} className="lg:col-span-5">
+          <div className="rounded-xl border border-line bg-paper-2 p-7">
+            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Education</div>
+            <div className="mt-4 font-display font-semibold text-3xl tracking-[-0.02em]">
+              {education.institution}
+            </div>
+            <div className="mt-1 font-serif italic text-xl text-accent">{education.degree}</div>
+            <div className="mt-6 flex justify-between border-t border-line pt-4 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+              <span>{education.status}</span>
+              <span>{education.period}</span>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      <div className="grid md:grid-cols-3">
+        {skillGroups.map((group, index) => (
+          <Reveal
+            key={group.category}
+            delay={index * 0.08}
+            className="border-b border-line py-10 md:border-l md:pl-8 md:first:border-l-0 md:first:pl-0"
           >
-            <BorderedCard hoverGlow={true} className="p-6 sm:p-8">
-              <h3 className="text-lg font-display font-bold text-white mb-6 text-left">
-                What I Bring to the Table
-              </h3>
-              <CheckmarkList items={coreStrengths} />
-            </BorderedCard>
-          </motion.div>
-
-        </div>
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">{group.category}</h3>
+            <ul className="mt-5 space-y-2">
+              {group.items.map((item) => (
+                <li key={item} className="font-display text-xl font-medium tracking-tight">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

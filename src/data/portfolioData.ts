@@ -1,30 +1,18 @@
 export interface Project {
   id: string;
-  title: string;
+  name: string;
+  type: string;
   description: string;
-  detailedDescription?: string;
+  highlights: string[];
   tags: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  stats?: {
-    stars?: number;
-    forks?: number;
-    views?: string;
-  };
-  mockupData: {
-    title: string;
-    image: string;
-    metrics: {
-      label: string;
-      value: string;
-      trend?: string;
-    }[];
-  };
+  liveUrl: string;
+  image: string;
 }
 
-export interface SkillGroup {
-  category: string;
-  items: { name: string; level?: string; iconName?: string }[];
+export interface Service {
+  title: string;
+  description: string;
+  proof: string;
 }
 
 export interface ExperienceItem {
@@ -33,371 +21,247 @@ export interface ExperienceItem {
   company: string;
   period: string;
   description: string[];
-  websites?: {
-    name: string;
-    url: string;
-  }[];
+  websites?: { name: string; url: string }[];
   tags: string[];
 }
 
-export interface EducationItem {
-  id: string;
-  degree: string;
-  institution: string;
-  period: string;
-  description: string[];
+export interface SkillGroup {
+  category: string;
+  items: string[];
 }
 
 export const personalInfo = {
   name: "Mamy Jean",
-  title: "Computer Science Student & Full Stack Engineer",
-  tagline:
-    "Building high-performance web applications and cloud architectures with a focus on visual polish and system scale.",
-  bio: "I am a Computer Science student passionate about building fast, accessible web applications. I focus on modern technologies like React, Next.js, Node.js, and TypeScript, combined with clean design systems and cloud infrastructures.",
-  resumeUrl: "#",
+  role: "Full-Stack Developer",
   email: "mamymanjakamanana32@gmail.com",
   github: "https://github.com/Mamy32",
-  availabilityStatus: "Available for remote work and freelance projects.",
+  location: "Indonesia",
+  timeZone: "Asia/Jakarta",
+  utcOffset: "UTC+7",
+  currentRole: "Web Development Intern",
+  currentCompany: "PBM Agency",
+  intro:
+    "I'm Mamy Jean — a computer science student at BINUS University and web development intern at PBM Agency. I work with Laravel, React and TypeScript to take products from the first commit to a production server.",
+  about: [
+    "I'm a second-year computer science student at BINUS University in Indonesia, originally from Madagascar. I started on the backend — my team placed 3rd at a national full-stack hackathon in Madagascar, where I built the API in Symfony — and I've since worked across the whole stack.",
+    "Today I split my time between coursework and client work at PBM Agency, where I build and optimise landing pages, run A/B tests, wire up analytics and automate deployments. I care about the unglamorous parts: load time, tracking that is actually correct, and releases that don't need babysitting.",
+    "I'm based in UTC+7, which overlaps with Asia-Pacific working hours and European mornings.",
+  ],
 };
 
+export const openTo = ["Remote roles", "Freelance projects"];
 
+export const education = {
+  institution: "BINUS University",
+  degree: "Bachelor of Computer Science",
+  status: "Second year",
+  period: "2025 — Present",
+};
 
-export const coreStrengths = [
-  "Performance-first mindset (Core Web Vitals optimized)",
-  "Strong foundation in data structures & algorithms",
-  "Experience with scalable database design (SQL/NoSQL)",
-  "Responsive and accessible development (WCAG AA)",
-  "CI/CD automation & containerized deployments",
-  "Typesafe development using TypeScript & strict linting",
+export const facts = [
+  { value: "04", label: "Products shipped and live" },
+  { value: "03", label: "Client sites optimised at PBM Agency" },
+  { value: "3rd", label: "Place, national full-stack hackathon" },
+];
+
+export const projects: Project[] = [
+  {
+    id: "bagisto-ecommerce",
+    name: "JFC Fashion",
+    type: "E-commerce",
+    description:
+      "A fashion storefront built on Bagisto and Laravel, covering the full path from catalogue to paid, shipped order.",
+    highlights: [
+      "Vue.js storefront with product, cart, checkout and order workflows",
+      "Duitku payment gateway integration for online checkout",
+      "Custom Biteship integration for live shipping-rate calculation",
+      "Configured and deployed on a production VPS",
+    ],
+    tags: ["Laravel", "Bagisto", "Vue.js", "MySQL", "Tailwind CSS", "Duitku", "Biteship"],
+    liveUrl: "https://jfcfashion.com/",
+    image: "/images/ecom.webp",
+  },
+  {
+    id: "study-planner",
+    name: "Study Planner",
+    type: "Web application",
+    description:
+      "A full-stack planning app that helps students organise tasks, manage deadlines and build a study schedule they can keep.",
+    highlights: [
+      "Tasks, calendar, study timer and analytics in one dashboard",
+      "Next.js front end on an Express API",
+      "PostgreSQL data layer modelled with Prisma",
+    ],
+    tags: ["Next.js", "React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma"],
+    liveUrl: "https://e2526-wads-b4cc.csbihub.id/",
+    image: "/images/study-planner.webp",
+  },
+  {
+    id: "shaundju-academy",
+    name: "Shaundju Academy",
+    type: "Learning platform",
+    description:
+      "An online education platform that gives students accessible learning resources in a clean, responsive interface.",
+    highlights: [
+      "Laravel back end with a React front end through Inertia.js",
+      "Typed UI in TypeScript, styled with Tailwind CSS",
+      "Responsive layout for mobile learners",
+    ],
+    tags: ["Laravel", "Inertia.js", "React", "TypeScript", "Tailwind CSS", "MySQL"],
+    liveUrl: "https://shaundjuacademy.com/",
+    image: "/images/shaundju.webp",
+  },
+  {
+    id: "fcms",
+    name: "FCMS",
+    type: "Management system",
+    description:
+      "A fitness centre management system for running a gym day to day: members, trainers, memberships and schedules.",
+    highlights: [
+      "Laravel REST API consumed by a React front end",
+      "Member, trainer and membership-plan management",
+      "Class and session scheduling",
+    ],
+    tags: ["Laravel", "PHP", "React", "REST API", "MySQL", "Tailwind CSS"],
+    liveUrl: "https://fcms-b958.vercel.app/",
+    image: "/images/fcms.webp",
+  },
+];
+
+export const services: Service[] = [
+  {
+    title: "Landing pages & conversion work",
+    description:
+      "Pages built to be measured: fast first load, clean tracking and variants you can test against each other.",
+    proof:
+      "A/B-tested variants routed with Cloudflare Workers; Meta Pixel, Microsoft Clarity and custom event tracking.",
+  },
+  {
+    title: "Full-stack web applications",
+    description:
+      "Dashboards, internal tools and platforms — data model, API and interface delivered as one piece.",
+    proof: "Laravel or Node.js back ends, React and Next.js front ends, PostgreSQL or MySQL.",
+  },
+  {
+    title: "E-commerce & integrations",
+    description:
+      "Storefronts that take real payments and ship real orders, including the third-party APIs in between.",
+    proof: "Bagisto on Laravel with Duitku payments and a custom Biteship shipping integration.",
+  },
+  {
+    title: "Performance & deployment",
+    description:
+      "Making existing sites quicker, and making releases boring through automation.",
+    proof:
+      "Core Web Vitals, asset optimisation and deferred scripts; GitHub Actions deploys to Linux servers over SSH.",
+  },
+];
+
+export const experience: ExperienceItem[] = [
+  {
+    id: "exp-pbm",
+    role: "Web Development Intern",
+    company: "PBM Agency",
+    period: "2026 — Present",
+    description: [
+      "Optimised multiple client websites for performance, design, user experience and conversion rate.",
+      "Built and maintained landing pages with Laravel, React (Inertia.js), TypeScript and Tailwind CSS.",
+      "Ran A/B tests by building and deploying landing page variations, with traffic routing on Cloudflare Workers.",
+      "Integrated analytics and tracking: Meta Pixel, Microsoft Clarity and custom event tracking.",
+      "Improved Core Web Vitals through asset optimisation and deferred script loading.",
+      "Automated releases with GitHub Actions, SSH and Linux servers.",
+    ],
+    websites: [
+      { name: "Fullbright Indonesia", url: "https://toefl.fullbrightindonesia.org/" },
+      { name: "Next Level", url: "https://nextlevel.pbmagency.id/" },
+      { name: "Hariyanto Chung Courses", url: "https://course.hariyantochung.com" },
+    ],
+    tags: ["Laravel", "React", "TypeScript", "Inertia.js", "Cloudflare Workers", "GitHub Actions", "A/B testing"],
+  },
+  {
+    id: "exp-ecommerce",
+    role: "Full-Stack E-Commerce Developer",
+    company: "Fashion E-Commerce Project",
+    period: "2026",
+    description: [
+      "Developed a full-stack fashion e-commerce platform with Laravel and Bagisto.",
+      "Implemented the Vue.js storefront and the product, cart, checkout and order workflows.",
+      "Integrated Duitku as the payment gateway and built a custom Biteship integration for shipping rates and delivery workflows.",
+      "Configured and deployed the application on a production VPS.",
+    ],
+    tags: ["Laravel", "Bagisto", "Vue.js", "MySQL", "Duitku", "Biteship", "VPS"],
+  },
+  {
+    id: "exp-freelance",
+    role: "Freelance Web Developer & Open Source Contributor",
+    company: "Self-employed",
+    period: "2025 — Present",
+    description: [
+      "Built responsive web applications and landing pages with modern JavaScript frameworks.",
+      "Developed full-stack projects with React, Next.js, Laravel and PostgreSQL.",
+      "Maintained Git-based workflows and kept improving front-end performance and user experience.",
+    ],
+    tags: ["React", "Next.js", "Laravel", "TypeScript", "PostgreSQL"],
+  },
+  {
+    id: "exp-hackathon",
+    role: "Backend Developer — 3rd place",
+    company: "National Full-Stack Web Development Hackathon, Madagascar",
+    period: "2024",
+    description: [
+      "Built the backend application in Symfony and PHP: API design and business logic.",
+      "Worked with front-end teammates to deliver a complete web application under time pressure.",
+      "Awarded 3rd place among participating teams.",
+    ],
+    tags: ["Symfony", "PHP", "REST API", "MySQL"],
+  },
 ];
 
 export const skillGroups: SkillGroup[] = [
   {
     category: "Languages",
-    items: [
-      { name: "TypeScript" },
-      { name: "JavaScript (ES6+)" },
-      { name: "Python" },
-      { name: "PHP" },
-      { name: "Go (Golang)" },
-      { name: "Java" },
-    ],
+    items: ["TypeScript", "JavaScript", "PHP", "Python", "Go", "Java"],
   },
   {
-    category: "Frameworks & Libraries",
+    category: "Frameworks",
     items: [
-      { name: "React" },
-      { name: "Next.js" },
-      { name: "laravel" },
-      { name: "symphony" },
-      { name: "Next.js" },
-      { name: "Node.js (Express / Fastify)" },
-      { name: "Tailwind CSS" },
-      { name: "Redux Toolkit" },
-      { name: "Prisma ORM" },
-    ],
-  },
-  {
-    category: "Tools & Infrastructure",
-    items: [
-      { name: "Git / GitHub Actions" },
-      { name: "Docker" },
-      { name: "AWS (S3, EC2, Lambda)" },
-      { name: "Firebase (Auth, Firestore)" },
-      { name: "PostgreSQL" },
-      { name: "Vercel / Netlify" },
-    ],
-  },
-];
-
-export const projects: Project[] = [
-  {
-    id: "study-planner",
-    title: "Study Planner — Smart Academic Planning",
-    description:
-      "A full-stack study planning application that helps students organize tasks, manage deadlines, and build optimized study schedules.",
-    tags: [
-      "Next.js",
       "React",
-      "TypeScript",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
+      "Next.js",
+      "Laravel",
+      "Symfony",
+      "Vue.js",
+      "Node.js (Express, Fastify)",
+      "Tailwind CSS",
+      "Redux Toolkit",
       "Prisma",
     ],
-    liveUrl: "https://e2526-wads-b4cc.csbihub.id/",
-    stats: {
-      views: "1.2k",
-    },
-    mockupData: {
-      title: "Study Planner Dashboard",
-      image: "/images/study-planner.webp",
-      metrics: [
-        {
-          label: "Active Tasks",
-          value: "24",
-          trend: "Organized",
-        },
-        {
-          label: "Completed",
-          value: "18",
-          trend: "+32% this week",
-        },
-        {
-          label: "Study Time",
-          value: "14.5h",
-          trend: "+2.4h this week",
-        },
-      ],
-    },
-  },
-
-  {
-    id: "fcms",
-    title: "FCMS — Fitness Center Management System",
-    description:
-      "A full-stack fitness center management system designed to manage members, trainers, memberships, schedules, and gym operations.",
-    tags: [
-      "Laravel",
-      "PHP",
-      "MySQL",
-      "React js",
-      "REST API",
-      "Tailwind CSS",
-    ],
-    liveUrl: "https://fcms-b958.vercel.app/",
-    stats: {
-      views: "980",
-    },
-    mockupData: {
-      title: "Fitness Center Management",
-      image: "/images/fcms.webp",
-      metrics: [
-        {
-          label: "Members",
-          value: "248",
-          trend: "+18 this month",
-        },
-        {
-          label: "Active Plans",
-          value: "186",
-          trend: "75% active",
-        },
-        {
-          label: "Sessions",
-          value: "64",
-          trend: "+12% this week",
-        },
-      ],
-    },
-  },
-
-  {
-    id: "shaundju-academy",
-    title: "Shaundju Academy — Online Learning Platform",
-    description:
-      "A modern education platform designed to provide students with accessible learning resources and a professional online learning experience.",
-    tags: [
-      "Laravel (inertia.js)",
-      "PHP",
-      "React js",
-      "Tailwind CSS",
-      "MySQL",
-      "typeScript",
-      "javascript",
-    ],
-    liveUrl: "https://shaundjuacademy.com/",
-    stats: {
-      views: "1.5k",
-    },
-    mockupData: {
-      title: "Shaundju Academy",
-      image: "/images/shaundju.webp",
-      metrics: [
-        {
-          label: "Platform",
-          value: "Online",
-          trend: "Learning",
-        },
-        {
-          label: "Experience",
-          value: "Responsive",
-          trend: "Mobile Ready",
-        },
-        {
-          label: "Content",
-          value: "Courses",
-          trend: "Available Online",
-        },
-      ],
-    },
   },
   {
-  id: "bagisto-ecommerce",
-  title: "Fashion E-Commerce — Bagisto",
-  description:
-    "A full-stack fashion e-commerce platform built with Bagisto and Laravel, featuring product management, checkout, Duitku payment integration, and custom Biteship shipping integration.",
-  tags: [
-    "Laravel",
-    "Bagisto",
-    "Vue.js",
-    "PHP",
-    "Vite",
-    "MySQL",
-    "Tailwind CSS",
-    "Duitku",
-    "Biteship"
-  ],
-  liveUrl: "https://jfcfashion.com/",
-  stats: {
-    views: "—"
-  },
-  mockupData: {
-    title: "Fashion E-Commerce Platform",
-    image: "/images/ecom.webp",
-    metrics: [
-      {
-        label: "Platform",
-        value: "Bagisto",
-        trend: "Laravel"
-      },
-      {
-        label: "Payment",
-        value: "Duitku",
-        trend: "Integrated"
-      },
-      {
-        label: "Shipping",
-        value: "Biteship",
-        trend: "Integrated"
-      }
-    ]
-  }
-},
-];
-
-export const experience: ExperienceItem[] = [
-{
-  id: "exp-1",
-  role: "Web Development Intern",
-  company: "PBM Agency",
-  period: "2026 — Present",
-
-  description: [
-    "Optimized multiple client websites to improve performance, design, user experience, and conversion rates.",
-    "Developed and maintained landing pages using Laravel, React (Inertia.js), TypeScript, and Tailwind CSS.",
-    "Implemented A/B testing by creating and deploying landing page variations to improve conversion performance.",
-    "Integrated analytics and tracking tools including Meta Pixel, Microsoft Clarity, and custom event tracking.",
-    "Improved website performance through asset optimization, deferred script loading, and Core Web Vitals enhancements.",
-    "Configured traffic routing and experimentation using Cloudflare Workers.",
-    "Managed deployments using GitHub Actions, SSH, and Linux servers to automate release workflows.",
-  ],
-
-  websites: [
-    {
-      name: "Fullbright Indonesia",
-      url: "https://toefl.fullbrightindonesia.org/",
-    },
-    {
-      name: "Next Level",
-      url: "https://nextlevel.pbmagency.id/",
-    },
-    {
-      name: "Hariyanto Chung Courses",
-      url: "https://course.hariyantochung.com",
-    },
-  ],
-
-  tags: [
-    "Laravel",
-    "React",
-    "TypeScript",
-    "Inertia.js",
-    "Tailwind CSS",
-    "Cloudflare Workers",
-    "GitHub Actions",
-    "Linux",
-    "A/B Testing",
-  ],
-},
-{
-  id: "exp-ecommerce",
-  role: "Full-Stack E-Commerce Developer",
-  company: "Fashion E-Commerce Project",
-  period: "2026",
-  description: [
-    "Developed a full-stack fashion e-commerce platform using Laravel and Bagisto.",
-    "Implemented the Vue.js storefront and integrated product, cart, checkout, and order workflows.",
-    "Integrated Duitku as the payment gateway for online checkout.",
-    "Implemented custom Biteship shipping integration for delivery rate calculation and shipping workflows.",
-    "Worked with MySQL for product, customer, order, and transaction data.",
-    "Configured and deployed the application on a production VPS environment."
-  ],
-  tags: [
-    "Laravel",
-    "Bagisto",
-    "Vue.js",
-    "MySQL",
-    "Duitku",
-    "Biteship",
-    "Tailwind CSS",
-    "Linux",
-    "VPS"
-  ]
-},
-  {
-    id: "exp-3",
-    role: "Open Source Contributor & Freelance Web Developer",
-    company: "Self-Employed",
-    period: "2025 — Present",
-    description: [
-      "Built responsive web applications and landing pages using modern JavaScript frameworks.",
-      "Developed personal and academic full-stack projects with React, Next.js, Laravel, and PostgreSQL.",
-      "Maintained Git-based workflows and continuously improved frontend performance and user experience.",
-    ],
-    tags: [
-      "React",
-      "Next.js",
-      "Laravel",
-      "TypeScript",
+    category: "Data & infrastructure",
+    items: [
       "PostgreSQL",
-      "Git",
-      "Tailwind CSS",
-    ],
-  },
-
-  {
-    id: "exp-2",
-    role: "Backend Developer",
-    company: "National Full-Stack Web Development Hackathon",
-    period: "2024",
-    description: [
-      "Competed in a national full-stack web development hackathon in Madagascar.",
-      "Developed the backend application using Symfony and PHP.",
-      "Designed backend APIs, implemented business logic, and collaborated with frontend teammates to deliver a complete web application.",
-      "Awarded 3rd Place among participating teams.",
-    ],
-    tags: [
-      "Symfony",
-      "PHP",
-      "REST API",
       "MySQL",
-      "Backend Development",
-      "Teamwork",
+      "Firebase",
+      "Docker",
+      "AWS (S3, EC2, Lambda)",
+      "Cloudflare Workers",
+      "GitHub Actions",
+      "Linux / VPS",
+      "Vercel",
     ],
   },
 ];
 
-export const education: EducationItem[] = [
-  {
-    id: "edu-1",
-    degree: "B.S. in Computer Science",
-    institution: "State University of Technology",
-    period: "2022 — 2026 (Expected)",
-    description: [
-      "GPA: 3.8/4.0",
-      "Relevant Coursework: Advanced Algorithms, Web Engineering, Database Management Systems, Software Engineering Architecture, Cloud Infrastructure.",
-      "Honors: Dean's List, Member of competitive programming team.",
-    ],
-  },
+export const marqueeItems = [
+  "Laravel",
+  "React",
+  "TypeScript",
+  "Next.js",
+  "Inertia.js",
+  "Vue.js",
+  "Node.js",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "Cloudflare Workers",
+  "GitHub Actions",
 ];
