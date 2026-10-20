@@ -38,12 +38,10 @@ export const personalInfo = {
   location: "Indonesia",
   timeZone: "Asia/Jakarta",
   utcOffset: "UTC+7",
-  currentRole: "Web Development Intern",
-  currentCompany: "PBM Agency",
   intro:
-    "I'm Mamy Jean — a computer science student at BINUS University and web development intern at PBM Agency. I work with Laravel, React and TypeScript to take products from the first commit to a production server.",
+    "I'm Mamy Jean — a computer science student at BINUS University. I work with Laravel, React and TypeScript to take products from the first commit to a production server.",
   about: [
-    "I'm a second-year computer science student at BINUS University in Indonesia, originally from Madagascar. I started on the backend — my team placed 3rd at a national full-stack hackathon in Madagascar, where I built the API in Symfony — and I've since worked across the whole stack.",
+    "I'm a computer science student at BINUS University in Indonesia, originally from Madagascar. I started on the backend — my team placed 3rd at a national full-stack hackathon in Madagascar, where I built the API in Symfony — and I've since worked across the whole stack.",
     "Today I split my time between coursework and client work at PBM Agency, where I build and optimise landing pages, run A/B tests, wire up analytics and automate deployments. I care about the unglamorous parts: load time, tracking that is actually correct, and releases that don't need babysitting.",
     "I'm based in UTC+7, which overlaps with Asia-Pacific working hours and European mornings.",
   ],
@@ -162,7 +160,7 @@ export const experience: ExperienceItem[] = [
     id: "exp-pbm",
     role: "Web Development Intern",
     company: "PBM Agency",
-    period: "2026 — Present",
+    period: "2026",
     description: [
       "Optimised multiple client websites for performance, design, user experience and conversion rate.",
       "Built and maintained landing pages with Laravel, React (Inertia.js), TypeScript and Tailwind CSS.",
@@ -195,7 +193,7 @@ export const experience: ExperienceItem[] = [
     id: "exp-freelance",
     role: "Freelance Web Developer & Open Source Contributor",
     company: "Self-employed",
-    period: "2025 — Present",
+    period: "2025",
     description: [
       "Built responsive web applications and landing pages with modern JavaScript frameworks.",
       "Developed full-stack projects with React, Next.js, Laravel and PostgreSQL.",
