@@ -53,7 +53,6 @@ export const Hero: React.FC = () => {
 
   const meta = [
     { label: 'Based in', value: `${personalInfo.location} · ${time} ${personalInfo.utcOffset}` },
-    { label: 'Currently', value: `${personalInfo.currentRole}, ${personalInfo.currentCompany}` },
     { label: 'Studying', value: `Computer Science, ${education.institution}` },
     { label: 'Open to', value: openTo.join(' · ') },
   ];
