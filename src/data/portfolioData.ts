@@ -52,7 +52,6 @@ export const openTo = ["Remote roles", "Freelance projects"];
 export const education = {
   institution: "BINUS University",
   degree: "Bachelor of Computer Science",
-  status: "Second year",
   period: "2025 — Present",
 };
 

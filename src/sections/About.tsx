@@ -32,7 +32,6 @@ export const About: React.FC = () => {
             </div>
             <div className="mt-1 font-serif italic text-xl text-accent">{education.degree}</div>
             <div className="mt-6 flex justify-between border-t border-line pt-4 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-              <span>{education.status}</span>
               <span>{education.period}</span>
             </div>
           </div>
