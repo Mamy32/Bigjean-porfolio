@@ -91,7 +91,7 @@ export const projects: Project[] = [
       "PostgreSQL data layer modelled with Prisma",
     ],
     tags: ["Next.js", "React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma"],
-    liveUrl: "https://e2526-wads-b4cc.csbihub.id/",
+    liveUrl: "https://wads-final-project-uoei.vercel.app/",
     image: "/images/study-planner.webp",
   },
   {
