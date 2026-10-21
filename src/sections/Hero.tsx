@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Download } from 'lucide-react';
 import { education, marqueeItems, openTo, personalInfo } from '../data/portfolioData';
 
 const formatTime = () =>
@@ -105,6 +105,13 @@ export const Hero: React.FC = () => {
               className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors"
             >
               Email me <ArrowUpRight size={18} />
+            </a>
+            <a
+              href="/CV_Mamy_Jean_Full-Stack_Developer.pdf"
+              download
+              className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors"
+            >
+              Download my CV <Download size={18} />
             </a>
           </div>
         </motion.div>
