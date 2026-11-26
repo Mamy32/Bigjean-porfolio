@@ -7,7 +7,7 @@ import { experience, facts } from '../data/portfolioData';
 export const Experience: React.FC = () => (
   <section id="experience" className="max-w-7xl mx-auto px-5 sm:px-8 pt-24 lg:pt-32">
     <SectionHeading index="03" label="Experience">
-      Where I've done <Em>the work.</Em>
+      Where I've made <Em>an impact.</Em>
     </SectionHeading>
 
     <Reveal className="grid sm:grid-cols-3 border-b border-line">
@@ -46,6 +46,24 @@ export const Experience: React.FC = () => (
               ))}
             </ul>
 
+            {item.featured && (
+              <a
+                href={item.featured.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-7 grid sm:grid-cols-[auto_1fr] gap-3 sm:gap-6 rounded-xl border border-line bg-paper-2 p-5 max-w-3xl hover:border-accent transition-colors"
+              >
+                <div className="sm:border-r sm:border-line sm:pr-6">
+                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">Selected project</div>
+                  <div className="mt-1 inline-flex items-center gap-1 font-medium">
+                    {item.featured.name}
+                    <ArrowUpRight size={15} className="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
+                <p className="text-sm leading-relaxed text-muted">{item.featured.summary}</p>
+              </a>
+            )}
+
             {item.websites && (
               <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
                 <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
@@ -66,9 +84,16 @@ export const Experience: React.FC = () => (
               </div>
             )}
 
-            <p className="mt-7 font-mono text-[11px] uppercase tracking-wider text-muted leading-relaxed">
-              {item.tags.join('  /  ')}
-            </p>
+            <ul className="mt-7 flex flex-wrap gap-2" aria-label="Technologies">
+              {item.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
           </div>
         </article>
       </Reveal>

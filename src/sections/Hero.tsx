@@ -70,29 +70,45 @@ export const Hero: React.FC = () => {
           className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted"
         >
           <span className="size-2 rounded-full bg-accent animate-blink" />
-          Available for new work
+          Open to opportunities worldwide
         </motion.div>
 
-        <div className="mt-8 grid lg:grid-cols-12 gap-10 items-end">
+        <div className="mt-8 grid lg:grid-cols-12 gap-10 items-center">
           <motion.h1
             variants={rise}
-            className="lg:col-span-10 font-display font-semibold text-[clamp(2.75rem,8.6vw,7.5rem)] leading-[0.92] tracking-[-0.04em]"
+            className="lg:col-span-9 font-display font-semibold text-[clamp(2.6rem,7.6vw,6.75rem)] leading-[0.95] tracking-[-0.04em]"
           >
-            Full-stack developer building fast,{' '}
-            <em className="font-serif font-normal italic tracking-[-0.01em] text-accent">
-              conversion-focused
-            </em>{' '}
-            web products.
+            Building digital experiences,{' '}
+            <em className="block font-serif font-normal italic tracking-[-0.01em] text-accent">
+              from ideas to reality.
+            </em>
           </motion.h1>
-          <motion.div variants={rise} className="hidden lg:flex lg:col-span-2 justify-end pb-3">
+          <motion.div variants={rise} className="hidden lg:flex lg:col-span-3 justify-end">
             <Stamp />
           </motion.div>
         </div>
 
-        <motion.div variants={rise} className="mt-10 lg:mt-14 grid lg:grid-cols-12 gap-8 items-end">
-          <p className="lg:col-span-6 text-lg sm:text-xl leading-relaxed text-muted">
-            {personalInfo.intro}
-          </p>
+        <motion.div variants={rise} className="mt-10 lg:mt-12 grid lg:grid-cols-12 gap-8 items-end">
+          <div className="lg:col-span-6">
+            <p className="font-display font-semibold text-3xl sm:text-4xl tracking-[-0.03em]">
+              Hi, I'm {personalInfo.name}{' '}
+              <span className="text-muted font-medium">— {personalInfo.role}.</span>
+            </p>
+            <p className="mt-4 text-lg sm:text-xl leading-relaxed text-muted max-w-2xl">
+              {personalInfo.intro}
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted mr-1">Core stack</span>
+              {personalInfo.coreStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full bg-ink px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-paper"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
           <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
             <a
               href="#work"
@@ -101,24 +117,24 @@ export const Hero: React.FC = () => {
               See selected work <ArrowDown size={18} />
             </a>
             <a
-              href={`mailto:${personalInfo.email}`}
-              className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors"
-            >
-              Email me <ArrowUpRight size={18} />
-            </a>
-            <a
               href="/CV_Mamy_Jean_Full-Stack_Developer.pdf"
               download
               className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors"
             >
-              Download my CV <Download size={18} />
+              Download CV <Download size={18} />
+            </a>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="inline-flex h-13 items-center gap-2 rounded-full border border-ink px-7 font-medium hover:bg-ink hover:text-paper transition-colors"
+            >
+              Email me <ArrowUpRight size={18} />
             </a>
           </div>
         </motion.div>
 
         <motion.dl
           variants={rise}
-          className="mt-14 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-line"
+          className="mt-14 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-line"
         >
           {meta.map((item) => (
             <div

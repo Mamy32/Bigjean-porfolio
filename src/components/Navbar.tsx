@@ -3,10 +3,10 @@ import { Menu, Moon, Sun, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 const navLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Experience', href: '#experience' },
   { label: 'About', href: '#about' },
+  { label: 'Work', href: '#work' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
 ];
 
 type Theme = 'light' | 'dark';

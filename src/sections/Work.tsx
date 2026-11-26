@@ -91,8 +91,8 @@ const ProjectRow: React.FC<{ project: Project; index: number }> = ({ project, in
 
 export const Work: React.FC = () => (
   <section id="work" className="max-w-7xl mx-auto px-5 sm:px-8 pt-24 lg:pt-32">
-    <SectionHeading index="01" label={`Selected work — ${String(projects.length).padStart(2, '0')} projects`}>
-      Shipped, live and <Em>in use.</Em>
+    <SectionHeading index="02" label={`Selected work — ${String(projects.length).padStart(2, '0')} live projects`}>
+      A closer look at <Em>what I've built.</Em>
     </SectionHeading>
     {projects.map((project, index) => (
       <ProjectRow key={project.id} project={project} index={index} />

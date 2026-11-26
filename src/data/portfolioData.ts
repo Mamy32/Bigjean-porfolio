@@ -9,10 +9,11 @@ export interface Project {
   image: string;
 }
 
-export interface Service {
+export interface Highlight {
+  label: string;
   title: string;
-  description: string;
-  proof: string;
+  detail: string;
+  period?: string;
 }
 
 export interface ExperienceItem {
@@ -22,12 +23,16 @@ export interface ExperienceItem {
   period: string;
   description: string[];
   websites?: { name: string; url: string }[];
+  featured?: { name: string; url: string; summary: string };
   tags: string[];
 }
 
 export interface SkillGroup {
   category: string;
-  items: string[];
+  /** Used in projects that are live in production */
+  production: string[];
+  /** Used in coursework, hackathons and personal projects */
+  familiar: string[];
 }
 
 export const personalInfo = {
@@ -39,12 +44,16 @@ export const personalInfo = {
   timeZone: "Asia/Jakarta",
   utcOffset: "UTC+7",
   intro:
-    "I'm Mamy Jean — a computer science student at BINUS University. I work with Laravel, React and TypeScript to take products from the first commit to a production server.",
+    "Computer Science student at BINUS University and Full-Stack Developer specialising in Laravel, React and TypeScript. I build end-to-end web applications — from system architecture and APIs to responsive interfaces and production deployment.",
+  coreStack: ["Laravel", "React", "TypeScript"],
+  aboutLead:
+    "I believe great software is built at the intersection of thoughtful engineering, practical problem-solving and continuous learning.",
   about: [
-    "I'm a computer science student at BINUS University in Indonesia, originally from Madagascar. I started on the backend — my team placed 3rd at a national full-stack hackathon in Madagascar, where I built the API in Symfony — and I've since worked across the whole stack.",
-    "Today I split my time between coursework and client work at PBM Agency, where I build and optimise landing pages, run A/B tests, wire up analytics and automate deployments. I care about the unglamorous parts: load time, tracking that is actually correct, and releases that don't need babysitting.",
-    "I'm based in UTC+7, which overlaps with Asia-Pacific working hours and European mornings.",
+    "I'm Mamy Jean, a Computer Science student at BINUS University and a full-stack developer, originally from Madagascar and now based in Jakarta, Indonesia.",
+    "My work focuses on functional, high-performance web applications built with Laravel, React and TypeScript. I enjoy taking an idea through every stage: designing the backend and APIs, building the interface, and deploying it to production.",
+    "Beyond the code, I've optimised website performance, run A/B tests, integrated analytics and used that data to improve user experience on real client sites at PBM Agency. I started on the backend — earning 3rd place nationally at Madagascar's Full-Stack Web Development Hackathon — and I'm now looking to contribute to teams building meaningful products, anywhere in the world.",
   ],
+  photo: "/images/mamy-jean.webp",
 };
 
 export const openTo = ["Remote roles", "Freelance projects"];
@@ -55,10 +64,36 @@ export const education = {
   period: "2025 — Present",
 };
 
+export const highlights: Highlight[] = [
+  {
+    label: "Achievement",
+    title: "3rd place, national hackathon",
+    detail: "Full-Stack Web Development Hackathon, Madagascar",
+    period: "2024",
+  },
+  {
+    label: "Education",
+    title: "BINUS University",
+    detail: "Bachelor of Computer Science",
+    period: "2025 — Present",
+  },
+  {
+    label: "Experience",
+    title: "Web Development Intern",
+    detail: "PBM Agency — client sites, A/B testing, CI/CD",
+    period: "2026",
+  },
+  {
+    label: "Background",
+    title: "Global perspective",
+    detail: "Madagascar · Indonesia · Remote-ready (UTC+7)",
+  },
+];
+
 export const facts = [
-  { value: "04", label: "Products shipped and live" },
-  { value: "03", label: "Client sites optimised at PBM Agency" },
-  { value: "3rd", label: "Place, national full-stack hackathon" },
+  { value: "04", label: "Live projects shipped to production" },
+  { value: "03", label: "Client websites optimised at PBM Agency" },
+  { value: "3rd", label: "Place at a national full-stack hackathon" },
 ];
 
 export const projects: Project[] = [
@@ -125,35 +160,6 @@ export const projects: Project[] = [
   },
 ];
 
-export const services: Service[] = [
-  {
-    title: "Landing pages & conversion work",
-    description:
-      "Pages built to be measured: fast first load, clean tracking and variants you can test against each other.",
-    proof:
-      "A/B-tested variants routed with Cloudflare Workers; Meta Pixel, Microsoft Clarity and custom event tracking.",
-  },
-  {
-    title: "Full-stack web applications",
-    description:
-      "Dashboards, internal tools and platforms — data model, API and interface delivered as one piece.",
-    proof: "Laravel or Node.js back ends, React and Next.js front ends, PostgreSQL or MySQL.",
-  },
-  {
-    title: "E-commerce & integrations",
-    description:
-      "Storefronts that take real payments and ship real orders, including the third-party APIs in between.",
-    proof: "Bagisto on Laravel with Duitku payments and a custom Biteship shipping integration.",
-  },
-  {
-    title: "Performance & deployment",
-    description:
-      "Making existing sites quicker, and making releases boring through automation.",
-    proof:
-      "Core Web Vitals, asset optimisation and deferred scripts; GitHub Actions deploys to Linux servers over SSH.",
-  },
-];
-
 export const experience: ExperienceItem[] = [
   {
     id: "exp-pbm",
@@ -168,25 +174,28 @@ export const experience: ExperienceItem[] = [
       "Improved Core Web Vitals through asset optimisation and deferred script loading.",
       "Automated releases with GitHub Actions, SSH and Linux servers.",
     ],
+    featured: {
+      name: "JFC Fashion — E-commerce",
+      url: "https://jfcfashion.com/",
+      summary:
+        "Built a fashion storefront on Laravel and Bagisto with Duitku payments, a custom Biteship shipping-rate integration and a production VPS deployment.",
+    },
     websites: [
       { name: "Fullbright Indonesia", url: "https://toefl.fullbrightindonesia.org/" },
       { name: "Next Level", url: "https://nextlevel.pbmagency.id/" },
       { name: "Hariyanto Chung Courses", url: "https://course.hariyantochung.com" },
     ],
-    tags: ["Laravel", "React", "TypeScript", "Inertia.js", "Cloudflare Workers", "GitHub Actions", "A/B testing"],
-  },
-  {
-    id: "exp-ecommerce",
-    role: "Full-Stack E-Commerce Developer",
-    company: "Fashion E-Commerce Project",
-    period: "2026",
-    description: [
-      "Developed a full-stack fashion e-commerce platform with Laravel and Bagisto.",
-      "Implemented the Vue.js storefront and the product, cart, checkout and order workflows.",
-      "Integrated Duitku as the payment gateway and built a custom Biteship integration for shipping rates and delivery workflows.",
-      "Configured and deployed the application on a production VPS.",
+    tags: [
+      "Laravel",
+      "React",
+      "TypeScript",
+      "Inertia.js",
+      "Vue.js",
+      "Bagisto",
+      "MySQL",
+      "Cloudflare Workers",
+      "GitHub Actions",
     ],
-    tags: ["Laravel", "Bagisto", "Vue.js", "MySQL", "Duitku", "Biteship", "VPS"],
   },
   {
     id: "exp-freelance",
@@ -217,35 +226,18 @@ export const experience: ExperienceItem[] = [
 export const skillGroups: SkillGroup[] = [
   {
     category: "Languages",
-    items: ["TypeScript", "JavaScript", "PHP", "Python", "Go", "Java"],
+    production: ["TypeScript", "JavaScript", "PHP"],
+    familiar: ["Python", "Go", "Java"],
   },
   {
-    category: "Frameworks",
-    items: [
-      "React",
-      "Next.js",
-      "Laravel",
-      "Symfony",
-      "Vue.js",
-      "Node.js (Express, Fastify)",
-      "Tailwind CSS",
-      "Redux Toolkit",
-      "Prisma",
-    ],
+    category: "Frameworks & libraries",
+    production: ["Laravel", "React", "Inertia.js", "Vue.js", "Next.js", "Node.js (Express)", "Tailwind CSS", "Prisma"],
+    familiar: ["Symfony", "Fastify", "Redux Toolkit"],
   },
   {
     category: "Data & infrastructure",
-    items: [
-      "PostgreSQL",
-      "MySQL",
-      "Firebase",
-      "Docker",
-      "AWS (S3, EC2, Lambda)",
-      "Cloudflare Workers",
-      "GitHub Actions",
-      "Linux / VPS",
-      "Vercel",
-    ],
+    production: ["MySQL", "PostgreSQL", "Linux / VPS", "GitHub Actions", "Cloudflare Workers", "Vercel"],
+    familiar: ["Docker", "Firebase", "AWS (S3, EC2, Lambda)"],
   },
 ];
 
